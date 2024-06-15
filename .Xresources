@@ -1,0 +1,11 @@
+Xcursor.theme:	Future-Dark
+Xcursor.size:	44
+
+
+dwm.normfgcolor:	#bcc3cf
+dwm.normbgcolor:	#101010
+dwm.normbordercolor:	#414141
+
+dwm.selfgcolor:		#effeff
+dwm.selbgcolor:		#213f8c
+dwm.selbordercolor:	#5eacec
