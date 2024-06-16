@@ -3,20 +3,20 @@
 #define SESSION_FILE "/tmp/dwm-session"
 
 /* appearance */
-static const unsigned int borderpx  = 4;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
-static const unsigned int gappiv    = 20;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 20;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 20;       /* vert outer gap between windows and screen edge */
+static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
+static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
+static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 #define ICONSIZE (bh - 8)   /* icon size */
 #define ICONSPACING 10 /* space between icon and title */
 static const char *fonts[]          = { "NotoSans Nerd Font:size=22",
-										"NotoSans Nerd Font:size=20",
-										"Noto Sans Symbols 2:size=22",
+										"NotoSans Nerd Font:size=18",
+										"Noto Sans Symbols 2:size=20",
 										"JetBrainsMono Nerd Font:style=ExtraBold:size=20" };
 
 static char normfgcolor[]           = "#bbbbbb";
@@ -82,7 +82,7 @@ static const unsigned int alphas[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"/usr/libexec/polkit-gnome-authentication-agent-1", NULL,
+	"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1", NULL,
 	"nitrogen", "--restore", NULL,
 	"picom", "-b", NULL,
 	NULL /* terminate */
@@ -101,7 +101,10 @@ static const Rule rules[] = {
 	{ .class = "Lxappearance", .isfloating = 1, .floatpos = "50% 50% -1h -1w" },
 	{ .class = "Gimp", .isfloating = 1, .floatpos = "50% 50% -1h -1w" },
 	{ .class = "pavucontrol", .isfloating = 1, .floatpos = "50% 50% -1h -1w" },
-	{ .class = "Firefox", .tags = 1 << 1 },
+	{ .class = "firefox", .tags = 1 << 1 },
+	{ .class = "outlook-for-linux", .tags = 1 << 3 },
+	{ .class = "teams-for-linux", .tags = 1 << 4 },
+	{ .class = "whatsapp-desktop-linux", .tags = 1 << 5 },
 	{ .class = "spterm", .scratchkey = 't', .isfloating = 1, .floatpos = "50% 50% 80% 80%" },
 };
 
@@ -151,6 +154,10 @@ static const Layout layouts[] = {
 /* commands */
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *roficmd[]  = { "rofi", "-show", "drun", NULL };
+static const char *firefoxcmd[]	= { "firefox", NULL };
+static const char *outlookcmd[]	= { "outlook", NULL };
+static const char *teamscmd[]	= { "teams", NULL };
+static const char *whatsappcmd[]	= { "whatsapp", NULL };
 
 static const char *sptermcmd[] = { "t", "alacritty", "--class", "spterm,spterm", NULL };
 
@@ -158,6 +165,10 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = firefoxcmd } },
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = whatsappcmd } },
+	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = teamscmd } },
+	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = outlookcmd } },
 	{ MODKEY,                       XK_g,      togglescratch,  {.v = sptermcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },

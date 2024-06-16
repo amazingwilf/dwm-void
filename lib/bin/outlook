@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+flatpak run io.github.mahmoudbahaa.outlook_for_linux
+
