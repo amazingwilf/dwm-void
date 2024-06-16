@@ -1,0 +1,35 @@
+Xcursor.theme:	Future-Dark
+Xcursor.size:	44
+
+
+dwm.normfgcolor:	#e16c75
+dwm.normbgcolor:	#101010
+dwm.normbordercolor:	#414141
+
+dwm.selfgcolor:		#effeff
+dwm.selbgcolor:		#101010
+dwm.selbordercolor:	#5eacec
+
+dwm.floatfgcolor:   #effeff
+dwm.floatbgcolor:   #101010
+dwm.floatbordercolor:   #c779df
+
+dwm.scratchnormfgcolor:   #bcc3cf
+dwm.scratchnormbgcolor:   #101010
+dwm.scratchnormbordercolor:   #414141
+
+dwm.scratchselfgcolor:   #effeff
+dwm.scratchselbgcolor:   #101010
+dwm.scratchselbordercolor:   #9bc57b
+
+dwm.tagsnormfgcolor:   #606060
+dwm.tagsnormbgcolor:   #101010
+dwm.tagsnormbordercolor:   #000000
+
+dwm.tagsoccfgcolor:   #5eacec
+dwm.tagsoccbgcolor:   #101010
+dwm.tagsoccbordercolor:   #000000
+
+dwm.tagsselfgcolor:   #efefef
+dwm.tagsselbgcolor:   #101010
+dwm.tagsselbordercolor:   #000000
