@@ -37,3 +37,7 @@ dwm.tagsoccbordercolor:   #000000
 dwm.tagsselfgcolor:   #efefef
 dwm.tagsselbgcolor:   #101010
 dwm.tagsselbordercolor:   #000000
+
+dwm.ltsymbolfgcolor:   #efefef
+dwm.ltsymbolbgcolor:   #101010
+dwm.ltsymbolbordercolor:   #E5C07A
