@@ -46,6 +46,9 @@ static char tagsoccbordercolor[]       = "#222222";
 static char tagsselfgcolor[]           = "#eeeeee";
 static char tagsselbgcolor[]           = "#222222";
 static char tagsselbordercolor[]       = "#222222";
+static char ltsymbolfgcolor[]           = "#eeeeee";
+static char ltsymbolbgcolor[]           = "#222222";
+static char ltsymbolbordercolor[]       = "#dddd00";
 static char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -57,6 +60,7 @@ static char *colors[][3] = {
        [SchemeTagsNorm]  = { tagsnormfgcolor,  tagsnormbgcolor,  tagsnormbordercolor  },
        [SchemeTagsOcc]  = { tagsoccfgcolor,  tagsoccbgcolor,  tagsoccbordercolor  },
        [SchemeTagsSel]  = { tagsselfgcolor,  tagsselbgcolor,  tagsselbordercolor  },
+       [SchemeLtSymbol]  = { ltsymbolfgcolor,  ltsymbolbgcolor,  ltsymbolbordercolor  },
 };
 
 #include "termcolors.h"
@@ -74,6 +78,7 @@ static const unsigned int alphas[][3]      = {
 	[SchemeTagsNorm]  = { OPAQUE, baralpha, borderalpha },
 	[SchemeTagsOcc]  = { OPAQUE, baralpha, borderalpha },
 	[SchemeTagsSel]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeLtSymbol]  = { OPAQUE, baralpha, borderalpha },
 };
 
 static const char *const autostart[] = {
@@ -166,7 +171,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
 	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
-	{ MODKEY,                       XK_Left,   incrgaps,       {.i = +1 } },
+	{ MODKEY,                       XK_Up,     incrgaps,       {.i = +1 } },
 	{ MODKEY,                       XK_Down,   incrgaps,       {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_g,      togglegaps,     {0} },
 	{ MODKEY|ControlMask,           XK_g,      defaultgaps,    {0} },

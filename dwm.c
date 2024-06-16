@@ -84,7 +84,7 @@ enum { CurResizeBR, CurResizeBL, CurResizeTR,
 	   CurLast }; /* cursor */
 enum { SchemeNorm, SchemeSel, SchemeFloat, SchemeSticky,
 	   SchemeScratchNorm, SchemeScratchSel, SchemeTagsNorm, 
-	   SchemeTagsOcc, SchemeTagsSel }; /* color schemes */
+	   SchemeTagsOcc, SchemeTagsSel, SchemeLtSymbol }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMIcon, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMSticky, NetWMWindowType,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
@@ -228,7 +228,6 @@ static void loadxrdb(void);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
-static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
 static Client *nexttagged(Client *c);
@@ -908,8 +907,8 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 	ret = x = m->ww - w;
 
 	drw_setscheme(drw, scheme[LENGTH(colors)]);
-	drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
-	drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
+	drw->scheme[ColFg] = scheme[SchemeSel][ColFg];
+	drw->scheme[ColBg] = scheme[SchemeSel][ColBg];
 	drw_rect(drw, x, 0, w, bh, 1, 1);
 	x++;
 
@@ -1020,10 +1019,11 @@ drawbar(Monitor *m)
 	/* draw layout symbol */
 	drw->fonts = drw->fonts->next; 
 	w = TEXTW(m->ltsymbol);
-	drw_setscheme(drw, scheme[SchemeNorm]);
+	drw_setscheme(drw, scheme[SchemeLtSymbol]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
 	drw->fonts = cur;
 
+	/* draw window title */
 	if ((w = m->ww - tw - x) > bh) {
 		if (m->sel) {
 			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
@@ -1585,6 +1585,9 @@ loadxrdb()
         XRDB_LOAD_COLOR("dwm.tagsselfgcolor", tagsselfgcolor);
         XRDB_LOAD_COLOR("dwm.tagsselbgcolor", tagsselbgcolor);
         XRDB_LOAD_COLOR("dwm.tagsselbordercolor", tagsselbordercolor);
+        XRDB_LOAD_COLOR("dwm.ltsymbolfgcolor", ltsymbolfgcolor);
+        XRDB_LOAD_COLOR("dwm.ltsymbolbgcolor", ltsymbolbgcolor);
+        XRDB_LOAD_COLOR("dwm.ltsymbolbordercolor", ltsymbolbordercolor);
         XRDB_LOAD_COLOR("color0",  termcol0);
         XRDB_LOAD_COLOR("color1",  termcol1);
         XRDB_LOAD_COLOR("color2",  termcol2);
@@ -1697,21 +1700,6 @@ maprequest(XEvent *e)
 		return;
 	if (!wintoclient(ev->window))
 		manage(ev->window, &wa);
-}
-
-void
-monocle(Monitor *m)
-{
-	unsigned int n = 0;
-	Client *c;
-
-	for (c = m->clients; c; c = c->next)
-		if (ISVISIBLE(c))
-			n++;
-	if (n > 0) /* override layout symbol */
-		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
-	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
 }
 
 void
