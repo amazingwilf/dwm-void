@@ -21,25 +21,56 @@ static char normbordercolor[]       = "#444444";
 static char selfgcolor[]            = "#eeeeee";
 static char selbgcolor[]            = "#005577";
 static char selbordercolor[]        = "#005577";
+static char floatfgcolor[]          = "#eeeeee";
+static char floatbgcolor[]          = "#005577";
+static char floatbordercolor[]      = "#cc7788";
+static char scratchnormfgcolor[]          = "#eeeeee";
+static char scratchnormbgcolor[]          = "#005577";
+static char scratchnormbordercolor[]      = "#cc7788";
+static char scratchselfgcolor[]          = "#eeeeee";
+static char scratchselbgcolor[]          = "#005577";
+static char scratchselbordercolor[]      = "#cc7788";
+static char tagsnormfgcolor[]           = "#444444";
+static char tagsnormbgcolor[]           = "#222222";
+static char tagsnormbordercolor[]       = "#222222";
+static char tagsoccfgcolor[]           = "#bbbbbb";
+static char tagsoccbgcolor[]           = "#222222";
+static char tagsoccbordercolor[]       = "#222222";
+static char tagsselfgcolor[]           = "#eeeeee";
+static char tagsselbgcolor[]           = "#222222";
+static char tagsselbordercolor[]       = "#222222";
 static char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+       [SchemeFloat]  = { floatfgcolor,  floatbgcolor,  floatbordercolor  },
+       [SchemeScratchNorm]  = { scratchnormfgcolor,  scratchnormbgcolor,  scratchnormbordercolor  },
+       [SchemeScratchSel]  = { scratchselfgcolor,  scratchselbgcolor,  scratchselbordercolor  },
+       [SchemeTagsNorm]  = { tagsnormfgcolor,  tagsnormbgcolor,  tagsnormbordercolor  },
+       [SchemeTagsOcc]  = { tagsoccfgcolor,  tagsoccbgcolor,  tagsoccbordercolor  },
+       [SchemeTagsSel]  = { tagsselfgcolor,  tagsselbgcolor,  tagsselbordercolor  },
 };
 
 #include "termcolors.h"
 
-static const unsigned int baralpha = 0xd0;
+static const unsigned int baralpha = 0xa0;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3]      = {
     /*               fg      bg        border*/
     [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeFloat]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeScratchNorm]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeScratchSel]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeTagsNorm]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeTagsOcc]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeTagsSel]  = { OPAQUE, baralpha, borderalpha },
 };
 
 static const char *const autostart[] = {
 	"/usr/libexec/polkit-gnome-authentication-agent-1", NULL,
 	"nitrogen", "--restore", NULL,
+	"picom", "-b", NULL,
 	NULL /* terminate */
 };
 
@@ -53,8 +84,10 @@ static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just 
 
 static const Rule rules[] = {
 	{ .class = "Lxappearance", .isfloating = 1, .floatpos = "50% 50% -1h -1w" },
+	{ .class = "Gimp", .isfloating = 1, .floatpos = "50% 50% -1h -1w" },
 	{ .class = "pavucontrol", .isfloating = 1, .floatpos = "50% 50% -1h -1w" },
 	{ .class = "Firefox", .tags = 1 << 1 },
+	{ .class = "spterm", .scratchkey = 't', .isfloating = 1, .floatpos = "50% 50% 80% 80%" },
 };
 
 /* layout(s) */
@@ -104,10 +137,13 @@ static const Layout layouts[] = {
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *roficmd[]  = { "rofi", "-show", "drun", NULL };
 
+static const char *sptermcmd[] = { "t", "alacritty", "--class", "spterm,spterm", NULL };
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_g,      togglescratch,  {.v = sptermcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
