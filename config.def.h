@@ -28,6 +28,9 @@ static char selbordercolor[]        = "#005577";
 static char floatfgcolor[]          = "#eeeeee";
 static char floatbgcolor[]          = "#005577";
 static char floatbordercolor[]      = "#cc7788";
+static char stickyfgcolor[]          = "#bbbbbb";
+static char stickybgcolor[]          = "#222222";
+static char stickybordercolor[]      = "#dddd00";
 static char scratchnormfgcolor[]          = "#eeeeee";
 static char scratchnormbgcolor[]          = "#005577";
 static char scratchnormbordercolor[]      = "#cc7788";
@@ -48,6 +51,7 @@ static char *colors[][3] = {
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
        [SchemeFloat]  = { floatfgcolor,  floatbgcolor,  floatbordercolor  },
+       [SchemeSticky]  = { stickyfgcolor, stickybgcolor,  stickybordercolor  },
        [SchemeScratchNorm]  = { scratchnormfgcolor,  scratchnormbgcolor,  scratchnormbordercolor  },
        [SchemeScratchSel]  = { scratchselfgcolor,  scratchselbgcolor,  scratchselbordercolor  },
        [SchemeTagsNorm]  = { tagsnormfgcolor,  tagsnormbgcolor,  tagsnormbordercolor  },
@@ -64,6 +68,7 @@ static const unsigned int alphas[][3]      = {
     [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 	[SchemeFloat]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeSticky]  = { OPAQUE, baralpha, borderalpha },
 	[SchemeScratchNorm]  = { OPAQUE, baralpha, borderalpha },
 	[SchemeScratchSel]  = { OPAQUE, baralpha, borderalpha },
 	[SchemeTagsNorm]  = { OPAQUE, baralpha, borderalpha },
@@ -173,6 +178,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
+	{ MODKEY|ShiftMask,             XK_s,      togglesticky,   {0} },
 	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },

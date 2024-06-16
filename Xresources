@@ -14,6 +14,10 @@ dwm.floatfgcolor:   #effeff
 dwm.floatbgcolor:   #101010
 dwm.floatbordercolor:   #c779df
 
+dwm.stickyfgcolor:   #bcc3cf
+dwm.stickybgcolor:   #101010
+dwm.stickybordercolor:   #E5C07A
+
 dwm.scratchnormfgcolor:   #bcc3cf
 dwm.scratchnormbgcolor:   #101010
 dwm.scratchnormbordercolor:   #414141
