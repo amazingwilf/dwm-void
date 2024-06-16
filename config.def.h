@@ -14,7 +14,11 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 #define ICONSIZE (bh - 8)   /* icon size */
 #define ICONSPACING 10 /* space between icon and title */
-static const char *fonts[]          = { "NotoSans Nerd Font:size=24" };
+static const char *fonts[]          = { "NotoSans Nerd Font:size=22",
+										"NotoSans Nerd Font:size=20",
+										"Noto Sans Symbols 2:size=22",
+										"JetBrainsMono Nerd Font:style=ExtraBold:size=20" };
+
 static char normfgcolor[]           = "#bbbbbb";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
@@ -75,7 +79,8 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+/* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
+static const char *tags[] = { "🯱", "🯲", "🯳", "🯴", "🯵", "🯶", "🯷", "🯸" };
 
 static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke	= 1;	/* thickness / height of the underline */

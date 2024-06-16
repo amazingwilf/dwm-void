@@ -60,7 +60,7 @@
 #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
 #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
 #define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
-#define NUMTAGS					8
+#define NUMTAGS					9
 #define OPAQUE                  0xffU
 #define XRDB_LOAD_COLOR(R,V)    if (XrmGetResource(xrdb, R, NULL, &type, &value) == True) { \
                                   if (value.addr != NULL && strnlen(value.addr, 8) == 7 && value.addr[0] == '#') { \
@@ -982,41 +982,36 @@ drawbar(Monitor *m)
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
-	Fnt *cur;
-	cur = drw->fonts;
 
 	if (!m->showbar)
 		return;
 
 	/* draw status first so it can be overdrawn by tags later */
-	drw->fonts = drw->fonts->next; 
 	if (m == selmon) { /* status is only drawn on selected monitor */
 		tw = m->ww - drawstatusbar(m, bh, stext);
 	}
 
-	/* draw tags */ 
 	for (c = m->clients; c; c = c->next) {
 		occ |= c->tags;
 		if (c->isurgent)
 			urg |= c->tags;
 	}
 	x = 0;
-	drw->fonts = drw->fonts->next; 
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeTagsSel : occ & 1 << i ? SchemeTagsOcc : SchemeTagsNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
 		if (ulineall || m->tagset[m->seltags] & 1 << i) /* if there are conflicts, just move these lines directly underneath both 'drw_setscheme' and 'drw_text' :) */
 			drw_rect(drw, x + ulinepad, bh - ulinestroke - ulinevoffset, w - (ulinepad * 2), ulinestroke, 1, 0);
+		if (occ & 1 << i)
+			drw_rect(drw, x + boxs, boxs, boxw, boxw,
+				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
+				urg & 1 << i);
 		x += w;
 	}
-
-	/* draw layout symbol */
-	drw->fonts = drw->fonts->next; 
 	w = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
-	drw->fonts = cur;
 
 	if ((w = m->ww - tw - x) > bh) {
 		if (m->sel) {
