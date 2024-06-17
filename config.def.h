@@ -106,6 +106,8 @@ static const Rule rules[] = {
 	{ .class = "outlook-for-linux", .tags = 1 << 3 },
 	{ .class = "teams-for-linux", .tags = 1 << 4 },
 	{ .class = "whatsapp-desktop-linux", .tags = 1 << 5 },
+	{ .class = "Alacritty", .isterminal = 1 },
+	{ .title = "Event Tester", .noswallow = 1 },
 	{ .class = "spterm", .scratchkey = 't', .isfloating = 1, .floatpos = "50% 50% 80% 80%" },
 };
 
@@ -116,6 +118,7 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 static int floatposgrid_x           = 5;        /* float grid columns */
 static int floatposgrid_y           = 5;        /* float grid rows */
+static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const char *toggle_float_pos      = "50% 50% 80% 80%"; // default floating position when triggering togglefloating
 
 
