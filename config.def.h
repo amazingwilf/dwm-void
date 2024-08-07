@@ -121,54 +121,71 @@ static const char *termcmd[]    = { "alacritty", NULL };
 static const char *roficmd[]    = { "rofi", "-show", "drun", NULL };
 static const char *firefoxcmd[] = { "firefox", NULL };
 
+static const char *bl_up[]      = { "light", "-A", "5", NULL};
+static const char *bl_down[]    = { "light", "-U", "5", NULL};
+
+static const char *volumeup[]   = { "pactl", "set-sink-volume", "0", "+5%", NULL };
+static const char *volumedown[] = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *volumemute[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
+
+
 static const char *sptermcmd[]   = { "t", "alacritty", "--class", "spterm,spterm", NULL};
 
+#include <X11/XF86keysym.h>
 static const Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_p,      spawn,          {.v = roficmd } },
-	{ MODKEY,                       XK_w,      spawn,          {.v = firefoxcmd } },
-	{ MODKEY,                       XK_grave,  togglescratch,  {.v = sptermcmd } },
-	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
-	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
-	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
-	{ MODKEY,                       XK_equal,  incrgaps,       {.i = +1 } },
-	{ MODKEY,                       XK_minus,  incrgaps,       {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_g,      togglegaps,     {0} },
-	{ MODKEY|ControlMask,           XK_g,      defaultgaps,    {0} },
-	{ MODKEY,                       XK_q,      killclient,     {0} },
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_b,      setlayout,      {.v = &layouts[6]} },
-	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[11]} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_Left,   viewtoleft,     {0} },
-	{ MODKEY,                       XK_Right,  viewtoright,    {0} }, 
-	{ MODKEY|ShiftMask,             XK_Left,   tagandviewtoleft,   {0} },
-	{ MODKEY|ShiftMask,             XK_Right,  tagandviewtoright,  {0} }, 
-	{ MODKEY|ControlMask,           XK_Left,   tagtoleft,          {0} }, 
-	{ MODKEY|ControlMask,           XK_Right,  tagtoright,         {0} }, 
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
+	/* modifier             key                         function            argument */
+	{ MODKEY,               XK_Return,                  spawn,              {.v = termcmd } },
+	{ MODKEY,               XK_p,                       spawn,              {.v = roficmd } },
+	{ MODKEY,               XK_w,                       spawn,              {.v = firefoxcmd } },
+
+	{0,                     XF86XK_MonBrightnessUp,     spawn,	            {.v = bl_up} },
+	{0,                     XF86XK_MonBrightnessDown,   spawn,	            {.v = bl_down} },
+
+    {0,                     XF86XK_AudioLowerVolume,    spawn,              {.v = volumedown } },
+	{0,                     XF86XK_AudioRaiseVolume,    spawn,              {.v = volumeup } },
+	{0,                     XF86XK_AudioMute,           spawn,              {.v = volumemute } },
+
+	{ MODKEY,               XK_grave,                   togglescratch,      {.v = sptermcmd } },
+
+	{ MODKEY,               XK_j,                       focusstack,         {.i = +1 } },
+	{ MODKEY,               XK_k,                       focusstack,         {.i = -1 } },
+	{ MODKEY|ShiftMask,     XK_j,                       rotatestack,        {.i = +1 } },
+	{ MODKEY|ShiftMask,     XK_k,                       rotatestack,        {.i = -1 } },
+	{ MODKEY,               XK_i,                       incnmaster,         {.i = +1 } },
+	{ MODKEY,               XK_d,                       incnmaster,         {.i = -1 } },
+	{ MODKEY,               XK_h,                       setmfact,           {.f = -0.05} },
+	{ MODKEY,               XK_l,                       setmfact,           {.f = +0.05} },
+	{ MODKEY|ShiftMask,     XK_h,                       setcfact,           {.f = +0.25} },
+	{ MODKEY|ShiftMask,     XK_l,                       setcfact,           {.f = -0.25} },
+	{ MODKEY|ShiftMask,     XK_o,                       setcfact,           {.f =  0.00} },
+	{ MODKEY,               XK_equal,                   incrgaps,           {.i = +1 } },
+	{ MODKEY,               XK_minus,                   incrgaps,           {.i = -1 } },
+	{ MODKEY|ShiftMask,     XK_g,                       togglegaps,         {0} },
+	{ MODKEY|ControlMask,   XK_g,                       defaultgaps,        {0} },
+	{ MODKEY,               XK_q,                       killclient,         {0} },
+	{ MODKEY|ShiftMask,     XK_q,                       quit,               {0} },
+	{ MODKEY|ShiftMask,     XK_r,                       quit,               {1} }, 
+	{ MODKEY,               XK_t,                       setlayout,          {.v = &layouts[0]} },
+	{ MODKEY,               XK_f,                       setlayout,          {.v = &layouts[1]} },
+	{ MODKEY,               XK_m,                       setlayout,          {.v = &layouts[2]} },
+	{ MODKEY,               XK_b,                       setlayout,          {.v = &layouts[6]} },
+	{ MODKEY,               XK_g,                       setlayout,          {.v = &layouts[11]} },
+	{ MODKEY|ShiftMask,     XK_space,                   togglefloating,     {0} },
+	{ MODKEY|ShiftMask,     XK_b,                       togglebar,          {0} },
+	{ MODKEY|ShiftMask,     XK_f,                       togglefullscr,      {0} },
+	{ MODKEY,               XK_0,                       view,               {.ui = ~0 } },
+	{ MODKEY|ShiftMask,     XK_0,                       tag,                {.ui = ~0 } },
+	{ MODKEY,               XK_Left,                    viewtoleft,         {0} },
+	{ MODKEY,               XK_Right,                   viewtoright,        {0} }, 
+	{ MODKEY|ShiftMask,     XK_Left,                    tagandviewtoleft,   {0} },
+	{ MODKEY|ShiftMask,     XK_Right,                   tagandviewtoright,  {0} }, 
+	{ MODKEY|ControlMask,   XK_Left,                    tagtoleft,          {0} }, 
+	{ MODKEY|ControlMask,   XK_Right,                   tagtoright,         {0} }, 
+	TAGKEYS(                XK_1,                                           0)
+	TAGKEYS(                XK_2,                                           1)
+	TAGKEYS(                XK_3,                                           2)
+	TAGKEYS(                XK_4,                                           3)
+	TAGKEYS(                XK_5,                                           4)
 };
 
 /* button definitions */
