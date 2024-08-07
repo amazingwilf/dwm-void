@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
@@ -22,18 +22,19 @@ static const char *fonts[]          = { "Noto Sans:size=24",
 
 static const char *colors[][4]      = {
 	/*                      fg      bg          border  float */
-	[SchemeNorm]        = { white,  black,      gray2,  gray2 },
-	[SchemeSel]         = { white,  black,      blue,   pink  },
-	[SchemeScratchNorm] = { white,  black,      gray2,  gray2 },
-	[SchemeScratchSel]  = { white,  black,      red,    red   },
-	[SchemeStButton]    = { green,  "#aa0000",  black,  black },
-	[SchemeLtSymbol]    = { yellow, black,      black,  black },
-    [SchemeTagEmpty]    = { gray2,  black,      black,  black },
-    [SchemeTag1]        = { blue,   black,      black,  black },
-    [SchemeTag2]        = { red,    black,      black,  black },
-    [SchemeTag3]        = { orange, black,      black,  black },
-    [SchemeTag4]        = { green,  black,      black,  black },
-    [SchemeTag5]        = { pink,   black,      black,  black },
+	[SchemeNorm]        = { white,  black,      gray2,  gray2  },
+	[SchemeSel]         = { white,  black,      blue,   pink   },
+	[SchemeScratchNorm] = { white,  black,      gray2,  gray2  },
+	[SchemeScratchSel]  = { white,  black,      red,    red    },
+	[SchemeSticky]      = { white,  black,      yellow, yellow },
+	[SchemeStButton]    = { green,  "#aa0000",  black,  black  },
+	[SchemeLtSymbol]    = { yellow, black,      black,  black  },
+    [SchemeTagEmpty]    = { gray2,  black,      black,  black  },
+    [SchemeTag1]        = { blue,   black,      black,  black  },
+    [SchemeTag2]        = { red,    black,      black,  black  },
+    [SchemeTag3]        = { orange, black,      black,  black  },
+    [SchemeTag4]        = { green,  black,      black,  black  },
+    [SchemeTag5]        = { pink,   black,      black,  black  },
 };
 
 static const int tagschemes[] = {
@@ -48,6 +49,7 @@ static const unsigned int alphas[][4]      = {
 	[SchemeSel]         = { OPAQUE, baralpha, borderalpha, borderalpha },
 	[SchemeScratchNorm] = { OPAQUE, baralpha, borderalpha, borderalpha },
 	[SchemeScratchSel]  = { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeSticky]      = { OPAQUE, baralpha, borderalpha, borderalpha },
 	[SchemeStButton]    = { OPAQUE, baralpha, borderalpha, borderalpha },
 	[SchemeLtSymbol]    = { OPAQUE, baralpha, borderalpha, borderalpha },
 	[SchemeTagEmpty]    = { OPAQUE, baralpha, borderalpha, borderalpha },
@@ -173,6 +175,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,     XK_space,                   togglefloating,     {0} },
 	{ MODKEY|ShiftMask,     XK_b,                       togglebar,          {0} },
 	{ MODKEY|ShiftMask,     XK_f,                       togglefullscr,      {0} },
+	{ MODKEY|ShiftMask,     XK_s,                       togglesticky,       {0} },
 	{ MODKEY,               XK_0,                       view,               {.ui = ~0 } },
 	{ MODKEY|ShiftMask,     XK_0,                       tag,                {.ui = ~0 } },
 	{ MODKEY,               XK_Left,                    viewtoleft,         {0} },
