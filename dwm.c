@@ -66,7 +66,10 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel, SchemeScratchNorm, SchemeScratchSel }; /* color schemes */
+enum { SchemeNorm, SchemeStButton, SchemeSel, SchemeLtSymbol, 
+       SchemeScratchNorm, SchemeScratchSel, SchemeTagEmpty,
+       SchemeTag1, SchemeTag2, SchemeTag3, SchemeTag4,
+       SchemeTag5 }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMIcon, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
@@ -915,6 +918,8 @@ drawbar(Monitor *m)
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
+	Fnt *cur;
+	cur = drw->fonts; 
 
 	if (!m->showbar)
 		return;
@@ -930,24 +935,41 @@ drawbar(Monitor *m)
 			urg |= c->tags;
 	}
 	x = 0;
+	drw->fonts = drw->fonts->next; 
+	drw->fonts = drw->fonts->next; 
 	w = TEXTW(buttonbar);
-	drw_setscheme(drw, scheme[SchemeNorm]);
+	drw_setscheme(drw, scheme[SchemeStButton]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, buttonbar, 0);
+	drw->fonts = cur;
+
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(tags[i]);
-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
+		/*drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);*/
+
+        drw_setscheme(drw, scheme[
+                /*m->tagset[m->seltags] & 1 << i */
+                occ & 1 << i
+                ? tagschemes[i] 
+                : SchemeTagEmpty
+            ]);
+
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+	    drw_setscheme(drw, scheme[SchemeNorm]);
 		if (ulineall || m->tagset[m->seltags] & 1 << i) /* if there are conflicts, just move these lines directly underneath both 'drw_setscheme' and 'drw_text' :) */
 			drw_rect(drw, x + ulinepad, bh - ulinestroke - ulinevoffset, w - (ulinepad * 2), ulinestroke, 1, 0);
-		if (occ & 1 << i)
-			drw_rect(drw, x + boxs, boxs, boxw, boxw,
-				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
-				urg & 1 << i);
+		/*if (occ & 1 << i)*/
+		/*	drw_rect(drw, x + boxs, boxs, boxw, boxw,*/
+		/*		m == selmon && selmon->sel && selmon->sel->tags & 1 << i,*/
+		/*		urg & 1 << i);*/
 		x += w;
 	}
+	drw->fonts = drw->fonts->next; 
+	drw->fonts = drw->fonts->next; 
+	drw->fonts = drw->fonts->next; 
 	w = TEXTW(m->ltsymbol);
-	drw_setscheme(drw, scheme[SchemeNorm]);
+	drw_setscheme(drw, scheme[SchemeLtSymbol]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+	drw->fonts = cur;
 
 	if ((w = m->ww - tw - x) > bh) {
 		if (m->sel) {

@@ -14,18 +14,31 @@ static const char buttonbar[]       = " ";
 #define ICONSIZE (bh - 8)
 #define ICONSPACING 8 
 static const char *fonts[]          = { "Noto Sans:size=24",
-                                        "JetBrainsMono Nerd Font:style=Medium:size=22" };
+                                        "JetBrainsMono Nerd Font:style=Medium:size=22",
+                                        "JetBrainsMono Nerd Font:style=Medium:size=26",
+                                        "JetBrainsMono Nerd Font:style=ExtraBold:size=18" };
 
 #include "themes/onedark.h"
 
 static const char *colors[][4]      = {
-	/*                      fg      bg      border  float */
-	[SchemeNorm]        = { white,  black,  gray2,  gray2 },
-	[SchemeSel]         = { white,  black,  blue,   pink  },
-	[SchemeScratchNorm] = { white,  black,  gray2,  gray2 },
-	[SchemeScratchSel]  = { white,  black,  red,    red   },
+	/*                      fg      bg          border  float */
+	[SchemeNorm]        = { white,  black,      gray2,  gray2 },
+	[SchemeSel]         = { white,  black,      blue,   pink  },
+	[SchemeScratchNorm] = { white,  black,      gray2,  gray2 },
+	[SchemeScratchSel]  = { white,  black,      red,    red   },
+	[SchemeStButton]    = { green,  "#aa0000",  black,  black },
+	[SchemeLtSymbol]    = { yellow, black,      black,  black },
+    [SchemeTagEmpty]    = { gray2,  black,      black,  black },
+    [SchemeTag1]        = { blue,   black,      black,  black },
+    [SchemeTag2]        = { red,    black,      black,  black },
+    [SchemeTag3]        = { orange, black,      black,  black },
+    [SchemeTag4]        = { green,  black,      black,  black },
+    [SchemeTag5]        = { pink,   black,      black,  black },
 };
 
+static const int tagschemes[] = {
+    SchemeTag1, SchemeTag2, SchemeTag3, SchemeTag4, SchemeTag5
+};
 
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
@@ -35,11 +48,19 @@ static const unsigned int alphas[][4]      = {
 	[SchemeSel]         = { OPAQUE, baralpha, borderalpha, borderalpha },
 	[SchemeScratchNorm] = { OPAQUE, baralpha, borderalpha, borderalpha },
 	[SchemeScratchSel]  = { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeStButton]    = { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeLtSymbol]    = { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeTagEmpty]    = { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeTag1]        = { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeTag2]        = { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeTag3]        = { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeTag4]        = { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeTag5]        = { OPAQUE, baralpha, borderalpha, borderalpha },
 };
 
 /* tagging */
 /*static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };*/
-static char *tags[] = {"", "", "", "", ""};
+static char *tags[] = { "", "", "", "", "" };
 
 
 static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
