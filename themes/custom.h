@@ -1,0 +1,12 @@
+static const char black[]       = "#101010";
+static const char white[]       = "#efefef";
+static const char gray2[]       = "#414141"; // unfocused window border
+static const char gray3[]       = "#545862";
+static const char gray4[]       = "#6d8dad";
+static const char blue[]        = "#7777dd";  // focused window border
+static const char green[]       = "#55ff55";
+static const char red[]         = "#e06c75";
+static const char orange[]      = "#caaa6a";
+static const char yellow[]      = "#cdcd55";
+static const char pink[]        = "#ff66ff";
+static const char col_borderbar[]  = "#1e222a"; // inner border

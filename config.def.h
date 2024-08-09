@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
@@ -10,15 +10,15 @@ static const unsigned int gappov    = 10;       /* vert outer gap between window
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char buttonbar[]       = " ";
+static const char buttonbar[]       = " ";
 #define ICONSIZE (bh - 8)
 #define ICONSPACING 8 
-static const char *fonts[]          = { "Noto Sans:size=24",
-                                        "JetBrainsMono Nerd Font:style=Medium:size=22",
-                                        "JetBrainsMono Nerd Font:style=Medium:size=26",
+static const char *fonts[]          = { "Noto Sans:size=20",
+                                        "JetBrainsMono Nerd Font:style=Medium:size=20",
+                                        "JetBrainsMono Nerd Font:style=Medium:size=24",
                                         "JetBrainsMono Nerd Font:style=ExtraBold:size=18" };
 
-#include "themes/onedark.h"
+#include "themes/dracula.h"
 
 static const char *colors[][4]      = {
 	/*                      fg      bg          border  float */
@@ -27,7 +27,7 @@ static const char *colors[][4]      = {
 	[SchemeScratchNorm] = { white,  black,      gray2,  gray2  },
 	[SchemeScratchSel]  = { white,  black,      red,    red    },
 	[SchemeSticky]      = { white,  black,      yellow, yellow },
-	[SchemeStButton]    = { green,  "#aa0000",  black,  black  },
+	[SchemeStButton]    = { blue,   "#aa0000",  black,  black  },
 	[SchemeLtSymbol]    = { yellow, black,      black,  black  },
     [SchemeTagEmpty]    = { gray2,  black,      black,  black  },
     [SchemeTag1]        = { blue,   black,      black,  black  },
@@ -41,7 +41,7 @@ static const int tagschemes[] = {
     SchemeTag1, SchemeTag2, SchemeTag3, SchemeTag4, SchemeTag5
 };
 
-static const unsigned int baralpha = 0xd0;
+static const unsigned int baralpha = 0xa0;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][4]      = {
     /*                      fg      bg        border       float */
@@ -72,7 +72,7 @@ static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just 
 
 static const Rule rules[] = {
 	{ .class = "Lxappearance", .isfloating = 1, .floatpos = "50% 50% -1w -1h" },
-	{ .class = "Firefox", .tags = 1 << 1 },
+	{ .class = "firefox", .tags = 1 << 1 },
     { .class = "spterm", .scratchkey = 't', .isfloating = 1, .floatpos = "50% 50% 80% 80%" },
 };
 
@@ -126,9 +126,9 @@ static const char *firefoxcmd[] = { "firefox", NULL };
 static const char *bl_up[]      = { "light", "-A", "5", NULL};
 static const char *bl_down[]    = { "light", "-U", "5", NULL};
 
-static const char *volumeup[]   = { "pactl", "set-sink-volume", "0", "+5%", NULL };
-static const char *volumedown[] = { "pactl", "set-sink-volume", "0", "-5%", NULL };
-static const char *volumemute[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
+static const char *volumeup[]   = { "volume", "--inc", NULL };
+static const char *volumedown[] = { "volume", "--dec", NULL };
+static const char *volumemute[] = { "volume", "--toggle", NULL };
 
 
 static const char *sptermcmd[]   = { "t", "alacritty", "--class", "spterm,spterm", NULL};
