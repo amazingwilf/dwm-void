@@ -19,6 +19,7 @@ typedef struct {
 	unsigned int w, h;
 	Display *dpy;
 	int screen;
+	Picture picture;
 	Window root;
     Visual *visual;
     unsigned int depth;
@@ -29,10 +30,13 @@ typedef struct {
 	Fnt *fonts;
 } Drw;
 
+Picture drw_picture_create_resized(Drw *drw, char *src, unsigned int src_w, unsigned int src_h, unsigned int dst_w, unsigned int dst_h);
+
 /* Drawable abstraction */
 Drw *drw_create(Display *dpy, int screen, Window win, unsigned int w, unsigned int h, Visual *visual, unsigned int depth, Colormap cmap);
 void drw_resize(Drw *drw, unsigned int w, unsigned int h);
 void drw_free(Drw *drw);
+void drw_pic(Drw *drw, int x, int y, unsigned int w, unsigned int h, Picture pic);
 
 /* Fnt abstraction */
 Fnt *drw_fontset_create(Drw* drw, const char *fonts[], size_t fontcount);
