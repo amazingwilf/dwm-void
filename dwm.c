@@ -75,6 +75,7 @@ enum {
 enum { 
     SchemeNorm, 
     SchemeSel,
+    SchemeStButton,
     SchemeLtSymbol
 }; /* color schemes */
 enum { 
@@ -101,6 +102,7 @@ enum {
     ClkTagBar, 
     ClkLtSymbol, 
     ClkStatusText, 
+    ClkButton,
     ClkWinTitle,
     ClkClientWin, 
     ClkRootWin, 
@@ -537,23 +539,28 @@ buttonpress(XEvent *e)
 	if (ev->window == selmon->barwin) {
 		i = x = 0;
 		unsigned int occ = 0;
-		for(c = m->clients; c; c=c->next)
-			occ |= c->tags == TAGMASK ? 0 : c->tags;
-		do {
-			/* Do not reserve space for vacant tags */
-			if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
-				continue;
-			x += TEXTW(tags[i]);
-		} while (ev->x >= x && ++i < LENGTH(tags));
-		if (i < LENGTH(tags)) {
-			click = ClkTagBar;
-			arg.ui = 1 << i;
-		} else if (ev->x < x + TEXTW(selmon->ltsymbol))
-			click = ClkLtSymbol;
-		else if (ev->x > selmon->ww - (int)TEXTW(stext))
-			click = ClkStatusText;
-		else
-			click = ClkWinTitle;
+		x += TEXTW(buttonbar);
+		if(ev->x < x) {
+			click = ClkButton;
+		} else {
+		    for(c = m->clients; c; c=c->next)
+			    occ |= c->tags == TAGMASK ? 0 : c->tags;
+			do {
+			    /* Do not reserve space for vacant tags */
+			    if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
+				    continue;
+			    x += TEXTW(tags[i]);
+			} while (ev->x >= x && ++i < LENGTH(tags));
+			if (i < LENGTH(tags)) {
+				click = ClkTagBar;
+				arg.ui = 1 << i;
+			} else if (ev->x < x + TEXTW(selmon->ltsymbol))
+				click = ClkLtSymbol;
+			else if (ev->x > selmon->ww - TEXTW(stext))
+				click = ClkStatusText;
+			else
+				click = ClkWinTitle;
+		}
 	} else if ((c = wintoclient(ev->window))) {
 		focus(c);
 		restack(selmon);
@@ -956,6 +963,13 @@ drawbar(Monitor *m)
 			urg |= c->tags;
 	}
 	x = 0;
+	drw->fonts = drw->fonts->next;
+	drw->fonts = drw->fonts->next;
+	w = TEXTW(buttonbar);
+	drw_setscheme(drw, scheme[SchemeStButton]);
+	x = drw_text(drw, x, 0, w, bh, lrpad / 2, buttonbar, 0);
+	drw->fonts = cur;
+
 	for (i = 0; i < LENGTH(tags); i++) {
 		/* Do not draw vacant tags */
 		if(!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
