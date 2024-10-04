@@ -29,6 +29,15 @@ static const char *colors[][4]      = {
 	[SchemeLtSymbol]	= { col_yellow,  col_gray1, col_black, col_black   },
 };
 
+static const unsigned int baralpha 		= 0xb2;
+static const unsigned int borderalpha 	= OPAQUE;
+static const unsigned int alphas[][4]      = {
+    /*               fg      bg        border*/
+    [SchemeNorm]		= { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeSel]			= { OPAQUE, baralpha, borderalpha, borderalpha },
+	[SchemeLtSymbol]	= { OPAQUE, baralpha, borderalpha, borderalpha },
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8" };
 
