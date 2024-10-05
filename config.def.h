@@ -3,6 +3,7 @@
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const int focusonwheel       = 0;
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
 static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
@@ -18,14 +19,14 @@ static const char *fonts[]          = { "Noto Sans:style=Medium:size=14",
 										"JetBrainsMono Nerd Font:style=ExtraBold:size=12",
 										"JetBrainsMono Nerd Font:size=18" };
 static const char col_black[]       = "#000000";
-static const char col_gray1[]       = "#0a0e14";
-static const char col_gray2[]       = "#686868";
-static const char col_gray3[]       = "#bababa";
+static const char col_gray1[]       = "#1e2127";
+static const char col_gray2[]       = "#5c6370";
+static const char col_gray3[]       = "#abb2bf";
 static const char col_gray4[]       = "#ffffff";
-static const char col_yellow[]		= "#F9AF4F";
-static const char col_blue[]        = "#53bdfa";
-static const char col_magenta[]     = "#cc66aa";
-static const char col_cyan[]		= "#11B1C6";
+static const char col_yellow[]		= "#d19a66";
+static const char col_blue[]        = "#61afef";
+static const char col_magenta[]     = "#c678dd";
+static const char col_cyan[]		= "#56b6c2";
 static const char col_hl[]          = "#a10101";
 static const char *colors[][4]      = {
 	/*               		fg           bg         border   */
