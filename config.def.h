@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int focusonwheel       = 0;
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
@@ -15,6 +15,9 @@ static const int user_bh            = 8;        /* 2 is the default spacing arou
 static const char buttonbar[]       = " ";
 #define ICONSIZE (bh - 10)  /* icon size */
 #define ICONSPACING 10 /* space between icon and title */
+static const double activeopacity   = 1.0f;     /* Window opacity when it's focused (0 <= opacity <= 1) */
+static const double inactiveopacity = 0.675f;   /* Window opacity when it's inactive (0 <= opacity <= 1) */
+static       Bool bUseOpacity       = True;     /* Starts with opacity on any unfocused windows */
 static const char *fonts[]          = { "Noto Sans:style=Medium:size=14",
 										"JetBrainsMono Nerd Font:style=ExtraBold:size=12",
 										"JetBrainsMono Nerd Font:size=18" };
@@ -136,6 +139,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,						XK_comma,  cyclelayout,    {.i = -1 } },
 	{ MODKEY,           			XK_period, cyclelayout,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_a,      toggleopacity,  {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },

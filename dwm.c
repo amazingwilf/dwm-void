@@ -98,6 +98,7 @@ enum {
     NetWMWindowTypeDialog, 
     NetClientList, 
     NetClientInfo,
+    NetWMWindowsOpacity,
     NetLast 
 }; /* EWMH atoms */
 enum { 
@@ -258,6 +259,7 @@ static void movemouse(const Arg *arg);
 static unsigned int nexttag(void);
 static Client *nexttagged(Client *c);
 static Client *nexttiled(Client *c);
+static void opacity(Client *c, double opacity);
 static void pop(Client *c);
 static unsigned int prevtag(void);
 static void propertynotify(XEvent *e);
@@ -294,6 +296,7 @@ static void tagtoprev(const Arg *arg);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void togglefullscr(const Arg *arg);
+static void toggleopacity(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void freeicon(Client *c);
@@ -1172,6 +1175,7 @@ focus(Client *c)
 		else
 			XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColBorder].pixel);
 		setfocus(c);
+		opacity(c, activeopacity);
 	} else {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
@@ -1805,6 +1809,18 @@ nexttiled(Client *c)
 }
 
 void
+opacity(Client *c, double opacity)
+{
+	if(bUseOpacity && opacity > 0 && opacity < 1) {
+		unsigned long real_opacity[] = { opacity * 0xffffffff };
+		XChangeProperty(dpy, c->win, netatom[NetWMWindowsOpacity], XA_CARDINAL,
+				32, PropModeReplace, (unsigned char *)real_opacity,
+				1);
+	} else
+		XDeleteProperty(dpy, c->win, netatom[NetWMWindowsOpacity]);
+}
+
+void
 pop(Client *c)
 {
 	detach(c);
@@ -2326,6 +2342,14 @@ setfullscreen(Client *c, int fullscreen)
 }
 
 void
+toggleopacity(const Arg *arg) {
+	bUseOpacity = !bUseOpacity;
+	for (Monitor* m = mons; m; m = m->next)
+		for (Client* c = m->clients; c; c = c->next)
+			opacity(c, (bUseOpacity && c != selmon->sel) ? inactiveopacity : activeopacity);
+}
+
+void
 setlayout(const Arg *arg)
 {
 	if (!arg || !arg->v || arg->v != selmon->lt[selmon->sellt])
@@ -2421,6 +2445,7 @@ setup(void)
 	netatom[NetWMWindowTypeDialog] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE_DIALOG", False);
 	netatom[NetClientList] = XInternAtom(dpy, "_NET_CLIENT_LIST", False);
 	netatom[NetClientInfo] = XInternAtom(dpy, "_NET_CLIENT_INFO", False);
+	netatom[NetWMWindowsOpacity] = XInternAtom(dpy, "_NET_WM_WINDOW_OPACITY", False);
 	/* init cursors */
 	cursor[CurNormal] = drw_cur_create(drw, XC_left_ptr);
 	cursor[CurResize] = drw_cur_create(drw, XC_sizing);
@@ -2702,6 +2727,7 @@ unfocus(Client *c, int setfocus)
 	if (!c)
 		return;
 	grabbuttons(c, 0);
+	opacity(c, inactiveopacity);
     if (c->isfloating)
         XSetWindowBorder(dpy, c->win, scheme[SchemeNorm][ColFloat].pixel);
     else
