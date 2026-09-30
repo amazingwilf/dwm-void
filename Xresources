@@ -1,0 +1,30 @@
+Xft.dpi:	192
+
+Xcursor.theme:	Bibata-Modern-Ice
+Xcursor.size:	48
+
+dwm.normfgcolor:		#abb2bf
+dwm.normbgcolor:		#181818
+dwm.normbordercolor:	
+
+dwm.selfgcolor:			#dcdfe4
+dwm.selbgcolor:			#0000b0
+dwm.selbordercolor:		#61afef
+
+dwm.floatbordercolor:	#c678dd
+
+dwm.ltsymfgcolor:		#e4c67b
+dwm.ltsymbgcolor:		#181818
+
+dwm.btnfgcolor:			#56b6c2
+dwm.btnbgcolor:			#dd0000
+
+dmenu.foreground:		#abb2bf
+dmenu.background:		#181818
+
+dmenu.selforeground:	#dcdfe4
+dmenu.selbackground:	#dd0000
+
+dmenu.bordercolor:		#61afef
+
+dmenu.font:				JetBrainsMono Nerd Font Propo:size=15
