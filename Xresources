@@ -3,28 +3,48 @@ Xft.dpi:	192
 Xcursor.theme:	Bibata-Modern-Ice
 Xcursor.size:	48
 
-dwm.normfgcolor:		#abb2bf
-dwm.normbgcolor:		#181818
-dwm.normbordercolor:	
+#define color00		#1C1E26
+#define color01		#232530
+#define color02		#2E303E
+#define color03		#6F6F70
+#define color04		#9DA0A2
+#define color05		#CBCED0
+#define color06		#DCDFE4
+#define color07		#E3E6EE
+#define color08		#E93C58
+#define color09		#E58D7D
+#define color0A		#EFB993
+#define color0B		#EFAF8E
+#define color0C		#24A8B4
+#define color0D		#DF5273
+#define color0E		#B072D1
+#define color0F		#E4A382 
+#define color10		#0000B0
+#define color11		#cc0000
 
-dwm.selfgcolor:			#dcdfe4
-dwm.selbgcolor:			#0000b0
-dwm.selbordercolor:		#61afef
 
-dwm.floatbordercolor:	#c678dd
+dwm.normfgcolor:		color05
+dwm.normbgcolor:		color00
+dwm.normbordercolor:	color02
 
-dwm.ltsymfgcolor:		#e4c67b
-dwm.ltsymbgcolor:		#181818
+dwm.selfgcolor:			color07
+dwm.selbgcolor:			color10
+dwm.selbordercolor:		color0D
 
-dwm.btnfgcolor:			#56b6c2
-dwm.btnbgcolor:			#dd0000
+dwm.floatbordercolor:	color0E
 
-dmenu.foreground:		#abb2bf
-dmenu.background:		#181818
+dwm.ltsymfgcolor:		color0A
+dwm.ltsymbgcolor:		color00
 
-dmenu.selforeground:	#dcdfe4
-dmenu.selbackground:	#dd0000
+dwm.btnfgcolor:			color0C
+dwm.btnbgcolor:			color11
 
-dmenu.bordercolor:		#61afef
+dmenu.foreground:		color05
+dmenu.background:		color00
+
+dmenu.selforeground:	color07
+dmenu.selbackground:	color10
+
+dmenu.bordercolor:		color0D
 
 dmenu.font:				JetBrainsMono Nerd Font Propo:size=15

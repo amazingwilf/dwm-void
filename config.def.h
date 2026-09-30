@@ -5,6 +5,7 @@ static const unsigned int borderpx	= 5;
 static const unsigned int snap		= 32;
 static int floatposgrid_x			= 5;
 static int floatposgrid_y			= 5;
+static const int swallowfloating	= 0;        /* 1 means swallow floating windows by default */
 static const char *toggle_float_pos	= "50% 50% 80% 80%"; 
 
 static const unsigned int gappih	= 10;
@@ -75,6 +76,8 @@ static const Rule rules[] = {
 	 */
 	{ .class = "Nwg-look", .isfloating = 1, .floatpos = "50% 50% -1h -1w" },
 	{ .class = "Firefox", .tags = 1 << 1 },
+	{ .class = "com.mitchellh.ghostty", .isterminal = 1 },
+	{ .title = "Event Tester", .isfloating = 1, .noswallow = 1 },
 };
 
 /* layout(s) */
