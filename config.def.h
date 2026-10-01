@@ -30,28 +30,33 @@ static char normfgcolor[]		= "#bbbbbb";
 static char normbgcolor[]		= "#222222";
 static char normbordercolor[]	= "#444444";
 
-static char selfgcolor[]		= "#eeeeee";
-static char selbgcolor[]		= "#005577";
-static char selbordercolor[]	= "#005577";
+static char selfgcolor[]			= "#eeeeee";
+static char selbgcolor[]			= "#005577";
+static char selbordercolor[]		= "#005577";
 
-static char floatbordercolor[]	= "#006688";
+static char floatbordercolor[]		= "#006688";
+static char scratchselbordercolor[]	= "#006688";
+static char stickybordercolor[]		= "#006688";
 
-static char ltsymfgcolor[]		= "#dddd00";
-static char ltsymbgcolor[]		= "#222222";
+static char ltsymfgcolor[]			= "#dddd00";
+static char ltsymbgcolor[]			= "#222222";
 
-static char btnfgcolor[]		= "#eeeeee";
-static char btnbgcolor[]		= "#dd0000";
+static char btnfgcolor[]			= "#eeeeee";
+static char btnbgcolor[]			= "#dd0000";
 
-static char *colors[][3]      = {
+static char *colors[][3]	= {
 	/*               fg         bg         border   */
-	[SchemeNorm]	= { normfgcolor,		normbgcolor,	normbordercolor },
-	[SchemeSel]		= { selfgcolor,			selbgcolor,		selbordercolor },
-	[SchemeFloat]	= { NULL,				NULL,			floatbordercolor },
-	[SchemeBtn]		= { btnfgcolor,			btnbgcolor,		NULL  },
-	[SchemeLtSym]	= { ltsymfgcolor,		ltsymbgcolor,	NULL  },
-	[SchemeTagsEm]	= { normbordercolor,	normbgcolor,	NULL  },
-	[SchemeTagsOcc]	= { normfgcolor,		normbgcolor,	NULL  },
-	[SchemeTagsSel]	= { selfgcolor,			selbgcolor,		NULL  },
+	[SchemeNorm]		= { normfgcolor,		normbgcolor,	normbordercolor },
+	[SchemeSel]			= { selfgcolor,			selbgcolor,		selbordercolor },
+	[SchemeFloat]		= { NULL,				NULL,			floatbordercolor },
+	[SchemeScratchNorm]	= { NULL,				NULL,			normbordercolor },
+	[SchemeScratchSel]	= { NULL,				NULL,			scratchselbordercolor },
+	[SchemeSticky]		= { NULL,				NULL,			stickybordercolor },
+	[SchemeBtn]			= { btnfgcolor,			btnbgcolor,		NULL  },
+	[SchemeLtSym]		= { ltsymfgcolor,		ltsymbgcolor,	NULL  },
+	[SchemeTagsEm]		= { normbordercolor,	normbgcolor,	NULL  },
+	[SchemeTagsOcc]		= { normfgcolor,		normbgcolor,	NULL  },
+	[SchemeTagsSel]		= { selfgcolor,			selbgcolor,		NULL  },
 };
 
 static const char *const autostart[] = {
@@ -78,6 +83,7 @@ static const Rule rules[] = {
 	{ .class = "Firefox", .tags = 1 << 1 },
 	{ .class = "com.mitchellh.ghostty", .isterminal = 1 },
 	{ .title = "Event Tester", .isfloating = 1, .noswallow = 1 },
+	{ .instance = "spterm", .scratchkey = 't', .isfloating = 1, .floatpos = "50% 50% 85% 85%" },
 };
 
 /* layout(s) */
@@ -124,6 +130,8 @@ static const char *downvol[]	= { "volume", "--dec",	NULL };
 static const char *upbl[]		= { "brightness", "--inc", NULL };
 static const char *downbl[]		= { "brightness", "--dec", NULL };
 
+static const char *sptermcmd[]	= { "t", "ghostty", "--x11-instance-name=spterm", "--title=Scratchpad", NULL };
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ ALTKEY,					XK_F1,						spawn,			{.v = dmenucmd } },
@@ -158,7 +166,9 @@ static const Key keys[] = {
 	{ MODKEY|SHIFTKEY,			XK_space,					togglefloating, {0} },
 	{ MODKEY|SHIFTKEY,			XK_g,						togglegaps,		{0} },
 	{ MODKEY|SHIFTKEY,			XK_b,						togglebar,     	{0} },
-	{ MODKEY|SHIFTKEY,			XK_f,						togglefullscr,	{0} },
+	{ MODKEY,					XK_f,						togglefullscr,	{0} },
+	{ MODKEY,					XK_grave,					togglescratch,	{.v = sptermcmd } },
+	{ MODKEY,					XK_s,						togglesticky,	{0} },
 	{ MODKEY,					XK_F5,						xrdb,			{.v = NULL } },
 	{ MODKEY,					XK_0,						view,			{.ui = ~0 } },
 	{ MODKEY|SHIFTKEY,			XK_0,						tag,			{.ui = ~0 } },
