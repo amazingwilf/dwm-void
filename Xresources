@@ -1,50 +1,51 @@
 Xft.dpi:	192
 
-Xcursor.theme:	Bibata-Modern-Ice
-Xcursor.size:	48
+Xcursor.theme:				Bibata-Modern-Ice
+Xcursor.size:				48
 
-#define color00		#1C1E26
-#define color01		#232530
-#define color02		#2E303E
-#define color03		#6F6F70
-#define color04		#9DA0A2
-#define color05		#CBCED0
-#define color06		#DCDFE4
-#define color07		#E3E6EE
-#define color08		#E93C58
-#define color09		#E58D7D
-#define color0A		#EFB993
-#define color0B		#EFAF8E
-#define color0C		#24A8B4
-#define color0D		#DF5273
-#define color0E		#B072D1
-#define color0F		#E4A382 
-#define color10		#0000B0
-#define color11		#cc0000
+#define color00				#090909
+#define color01				#353b45
+#define color02				#3e4451
+#define color03				#545862
+#define color04				#565c64
+#define color05				#abb2bf
+#define color06				#b6bdca
+#define color07				#c8ccd4
+#define color08				#e06c75
+#define color09				#d19a66
+#define color0A				#e5c07b
+#define color0B				#98c379
+#define color0C				#56b6c2
+#define color0D				#61afef
+#define color0E				#c678dd
+#define color0F				#be5046
+#define color10				#0000B0
+#define color11				#a00000
 
+dwm.normfgcolor:			color05
+dwm.normbgcolor:			color00
+dwm.normbordercolor:		color02
 
-dwm.normfgcolor:		color05
-dwm.normbgcolor:		color00
-dwm.normbordercolor:	color02
+dwm.selfgcolor:				color07
+dwm.selbgcolor:				color10
+dwm.selbordercolor:			color0D
 
-dwm.selfgcolor:			color07
-dwm.selbgcolor:			color10
-dwm.selbordercolor:		color0D
+dwm.floatbordercolor:		color0E
+dwm.scratchselbordercolor:	color08
+dwm.stickybordercolor:		color0A
 
-dwm.floatbordercolor:	color0E
+dwm.ltsymfgcolor:			color0A
+dwm.ltsymbgcolor:			color00
 
-dwm.ltsymfgcolor:		color0A
-dwm.ltsymbgcolor:		color00
+dwm.btnfgcolor:				color0C
+dwm.btnbgcolor:				color11
 
-dwm.btnfgcolor:			color0C
-dwm.btnbgcolor:			color11
+dmenu.foreground:			color05
+dmenu.background:			color00
 
-dmenu.foreground:		color05
-dmenu.background:		color00
+dmenu.selforeground:		color07
+dmenu.selbackground:		color10
 
-dmenu.selforeground:	color07
-dmenu.selbackground:	color10
+dmenu.bordercolor:			color0D
 
-dmenu.bordercolor:		color0D
-
-dmenu.font:				JetBrainsMono Nerd Font Propo:size=15
+dmenu.font:					JetBrainsMono Nerd Font Propo:size=15
